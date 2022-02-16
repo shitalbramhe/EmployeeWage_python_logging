@@ -20,13 +20,25 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 EMP_RATE_PER_HOUR = 20
-number = random.randint(0,1)
-if number == 1:
-    logger.info("Employee is FullTime")
-    empHrs = 8
-else:
-    logger.info("Employee is PartTime")
-    empHrs = 4
-logger.info("Daliy Wage is : {}".format(empHrs * EMP_RATE_PER_HOUR))
+number = random.randint(0,2)
+def FullTime():
+    return 8
+def PartTime():
+    return 4
+def Absent():
+    return 0    
+
+switcher = {
+    0: Absent(),
+    1: FullTime(),
+    2: PartTime(),
+}
+# Get the option from switcher dictionary
+option = switcher.get(number)
+
+empWage=option*EMP_RATE_PER_HOUR
+
+#print employee wage
+logger.info("Employee Wage:{}".format(empWage))
 
     
