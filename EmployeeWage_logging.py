@@ -2,8 +2,8 @@
 @Author: Shital Bajait
 @Date: 2022-02-16 15:30:00
 @Last Modified by: Shital Bajait
-@Last Modified time: 2022-02-16 16:51:00
-@Title : Refactor code using function
+@Last Modified time: 2022-02-16 17:30:00
+@Title : Store Daily Wage
 '''
 """
 Description:
@@ -26,6 +26,7 @@ logger = logging.getLogger()
  
 # Setting the threshold of logger to DEBUG
 logger.setLevel(logging.INFO)
+
 EMP_RATE_PER_HOUR = 20
 NUM_OF_WORKING_DAYS = 20
 MAX_HRS_IN_MONTH = 100
@@ -44,16 +45,16 @@ def total():
     totalEmpHrs = 0
     totalWorkingDays = 0
     totalEmpWage=0
-    empWage = 0
+    empWage = []
     while totalEmpHrs <= MAX_HRS_IN_MONTH and totalWorkingDays < NUM_OF_WORKING_DAYS:
-            totalWorkingDays+=1
             number = random.randint(0,2)
             option = switcher.get(number)
             totalEmpHrs=totalEmpHrs+option
-            empWage=option * EMP_RATE_PER_HOUR
-            totalEmpWage += empWage
+            empWage.append(option*EMP_RATE_PER_HOUR)
+            logger.info("Daily wage : {} ".format(empWage[totalWorkingDays]))
+            totalWorkingDays+=1
     logger.info("Total Employee Hours : {} ".format(totalEmpHrs))
-    logger.info("Total Employee Wage : {} ".format(totalEmpWage))
+    logger.info("Total Employee Wage : {} ".format(sum(empWage)))
 
 
 if __name__ == "__main__":
