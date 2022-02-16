@@ -3,7 +3,7 @@
 @Date: 2022-02-16 15:30:00
 @Last Modified by: Shital Bajait
 @Last Modified time: 2022-02-16 16:51:00
-@Title : Calculate wage for a month
+@Title : Calculate wage for a month hours reached maximum 
 '''
 import logging
 import random
@@ -18,14 +18,16 @@ logger = logging.getLogger()
  
 # Setting the threshold of logger to DEBUG
 logger.setLevel(logging.INFO)
-
 EMP_RATE_PER_HOUR = 20 
 NUM_OF_WORKING_DAYS = 20
-empHrs = 0
 empWage = 0
 totalEmpWage=0
+totalEmpHrs = 0
+totalWorkingDays = 0
 day=0
-while day<NUM_OF_WORKING_DAYS:
+MAX_HRS_IN_MONTH = 100
+while totalEmpHrs <= MAX_HRS_IN_MONTH and totalWorkingDays < NUM_OF_WORKING_DAYS:
+    totalWorkingDays+=1
     number = random.randint(0,2)
     def FullTime():
         return 8
@@ -41,12 +43,14 @@ while day<NUM_OF_WORKING_DAYS:
     }
     # Get the option from switcher dictionary
     option = switcher.get(number)
-
-    empWage=option * EMP_RATE_PER_HOUR
+    totalEmpHrs+=option
+    empWage=option*EMP_RATE_PER_HOUR
     totalEmpWage += empWage
-    day+=1
+
 #print employee wage
+logger.info("Total Employee Hours : {} ".format(totalEmpHrs))
 logger.info("Total Employee Wage : {} ".format(totalEmpWage))
+
 
 
     
